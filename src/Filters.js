@@ -46,7 +46,7 @@ import React from "react";
 
 const Filters = ({ filterOptions, onFilterChange }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-4 border">
       <label className="block text-sm font-bold mb-2">Filter by:</label>
       <div className="flex space-x-4">
         <div>

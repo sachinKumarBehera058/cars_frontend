@@ -101,7 +101,7 @@ const App = () => {
   };
 
   return (
-    <div className="bg-white-800 text-blue-900 p-4">
+    <div className="bg-white-800 text-blue-900 p-2">
       <h1 className="text-4xl font-bold p-2 bg-blue-800 text-white text-center">
         My Car App
       </h1>
@@ -139,6 +139,12 @@ const App = () => {
       )}
 
       <CarList cars={filteredProducts} />
+      <footer className="bg-blue-800 text-white p-8">
+        <div className="container mx-auto text-center">
+          <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+      </footer>
+
     </div>
   );
 };
