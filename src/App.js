@@ -18,13 +18,13 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://cars-backend-theta.vercel.app/api/cars');
+        const response = await axios.get('https://cars-backend-iota.vercel.app/api/cars');
         console.log("data fetched");
         setCars(response.data.myData);
         setFilteredProducts(response.data.myData);
 
         // Fetch the number of unique car models after setting cars
-        const uniqueModelsResponse = await axios.get('https://cars-backend-theta.vercel.app/api/cars/models/count');
+        const uniqueModelsResponse = await axios.get('https://cars-backend-iota.vercel.app/api/cars/models/count');
         setUniqueModelsCount(uniqueModelsResponse.data.uniqueModelsCount);
       } catch (error) {
         console.error('Error fetching data:', error.message);
