@@ -1,8 +1,11 @@
-// Import React and other necessary modules
 import React from 'react';
 
-// Define the CarList component
-const CarList = ({ cars }) => {
+const CarList = ({ cars}) => {
+  console.log('Cars in CarList:', cars);
+
+  if (!cars || !Array.isArray(cars)) {
+    return <p>No cars available</p>;
+  }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {cars.map((car, index) => (
@@ -29,5 +32,4 @@ const CarList = ({ cars }) => {
   );
 };
 
-// Export the component
 export default CarList;

@@ -1,38 +1,115 @@
-.App {
+/* 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Colors
+:root {
+  --white: #ffffff;
+  --blue-900: #1a202c;
+  --blue-800: #4299e1;
+  --blue-600: #2c5282;
+  --red-500: #e53e3e;
+  --red-600: #c53030;
+}
+
+/* Utility Classes 
+.center {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.bold {
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.margin {
+  margin: 0.5rem;
+}
+
+.padding {
+  padding: 0.5rem;
+}
+
+/* Components 
+.container {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Header Styles 
+.header {
+  background-color: var(--blue-800);
+  color: var(--white);
+  padding: 2rem;
+}
+
+/* Footer Styles 
+.footer {
+  background-color: var(--blue-800);
+  color: var(--white);
+  padding: 2rem;
+}
+
+/* Button Styles 
+.button {
+  background-color: var(--blue-500);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--blue-600);
+}
+
+/* Car List Styles 
+.car-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.car-card {
+  border: 1px solid #d2d6dc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.car-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Responsive Styles 
+@media (max-width: 768px) {
+  .car-list {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
   }
 }
+ 
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ */
+
+ /* Add this CSS to your stylesheet */
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.flex-grow {
+  flex-grow: 1;
 }
