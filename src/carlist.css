@@ -1,46 +1,57 @@
-/* Add your own custom styles above this line */
-
-/* Example of custom styling for the CarList component */
 .car-list {
-    display: grid;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.car-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.car-card:hover {
+  transform: scale(1.05);
+}
+
+.car-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.car-details {
+  text-align: left;
+}
+
+.car-model {
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #1E3A8A;
+}
+
+.car-price{
+  font-weight: 600;
+  font-size: x-large;
+  color: rgb(75, 74, 74);
+}
+
+.car-info {
+  color: #3a3838;
+  margin-bottom: 4px;
+}
+
+
+@media (max-width: 768px) {
+  .car-list {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
   }
-  
-  .car-card {
-    background-color: #ffffff;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .car-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .car-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 8px;
-    border-radius: 4px;
-  }
-  
-  .car-details {
-    text-align: center;
-  }
-  
-  .car-model {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .car-info {
-    color: #4b5563;
-    margin-bottom: 4px;
-  }
-  
-  /* Add more custom styles as needed */
-  
+}
+

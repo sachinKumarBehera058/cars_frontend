@@ -2,23 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarList from './carlist';
 import Filters from './Filters';
+import './App.css';
+import "@fontsource/poppins";
 
 const App = () => {
   const [filters, setFilters] = useState({
-    price: ["All"],
+    price: [0, 300000],
     color: ["All"],
-    mileage: ["All"],
+    mileage: [0, 35],
   });
+
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [cars, setCars] = useState([]);
+  // const [cars, setCars] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterApplied, setIsFilterApplied] = useState(false);
-  const [uniqueModelsCount, setUniqueModelsCount] = useState(0);
 
   const fetchAllCars = async () => {
     try {
-      const response = await axios.get('https://cars-backend-iota.vercel.app/api/all');
-      setCars(response.data.cars);
+      const response = await axios.get('http://localhost:8000/api/all');
+      // setCars(response.data.cars);
       setFilteredProducts(response.data.cars);
     } catch (error) {
       console.error('Error fetching all cars:', error.message);
@@ -26,29 +28,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchAllCars(); // Fetch all cars when the component mounts
-
-    // Fetch the number of unique car models after setting cars
-    const fetchUniqueModelsCount = async () => {
-      try {
-        const uniqueModelsResponse = await axios.get('https://cars-backend-iota.vercel.app/api/count');
-        setUniqueModelsCount(uniqueModelsResponse.data.myData);
-      } catch (error) {
-        console.error('Error fetching unique models count:', error.message);
-      }
-    };
-
-    fetchUniqueModelsCount();
+    fetchAllCars();
   }, []);
 
   const handleFilterClick = async () => {
     try {
-      const response = await axios.get('https://cars-backend-iota.vercel.app/api/filter', {
+      const response = await axios.get('http://localhost:8000/api/filter', {
         params: {
           model: searchQuery,
           colors: filters.color && filters.color[0],
-          mileage: filters.mileage && filters.mileage[0],
-          price: filters.price && filters.price[0],
+          mileage: filters.mileage && filters.mileage[1],
+          price: filters.price && filters.price[1],
         },
       });
 
@@ -57,91 +47,85 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching filtered data:', error.message);
     }
+  };
+  const handleColorChange = (color, checked) => {
+    let updatedColors;
 
-  }
+    if (checked) {
+      updatedColors = [...filters.color, color];
+    } else {
+      updatedColors = filters.color.filter((c) => c !== color);
+    }
 
-  // ... (rest of your component remains unchanged)
+    handleFilterChange('color', updatedColors);
+  };
+
   const handleFilterChange = (type, value) => {
-    setFilters({ ...filters, [type]: [value] });
+    setFilters({ ...filters, [type]: value });
   };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleResetFilter = () => {
+  const handleResetFilters = () => {
+    // Reset your filters here
     setFilters({
-      price: ["All"],
-      colors: ["All"],
-      mileage: ["All"],
+      price: [0, 300000],
+      color: ["All"],
+      mileage: [0, 35],
     });
-    setSearchQuery("");
-    setFilteredProducts(cars);
+
+    
+    fetchAllCars();
     setIsFilterApplied(false);
+    setSearchQuery("");
   };
 
   const filterOptions = {
-    prices: ["All", "20000", "30000", "40000", "50000", "60000", "80000", "100000", "200000", "300000"],
     colors: ["All", "Red", "Blue", "Silver", "Black", "White", "Gray", "Yellow"],
-    mileages: ["All", "10", "15", "20", "25", "30", "35"],
   };
 
-
-
   return (
-    <div className="bg-white-800 text-blue-900 p-2">
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-grow">
-          <h1 className="text-4xl font-bold p-2 bg-blue-800 text-white text-center">
-            My Car App
-          </h1>
+    <>
+      <nav className="navbar">
+        <div className="navbar-container container">
+          <h1 className="logo">BUYCar.com</h1>
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search your Favourite Cars"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+            <button onClick={handleFilterClick} className="search-btn">
+              Search
+            </button>
+          </div>
+        </div>
+      </nav>
 
-          <p className='text-center font-bold text-black p-6'>Total number of Car Models Present:  {uniqueModelsCount}</p>
-
+      <div className="main-container">
+        <div className="sidebar">
           <Filters
             filterOptions={filterOptions}
             onFilterChange={handleFilterChange}
+            onColorChange={handleColorChange}
+            filters={filters}
+            onFilterClick={handleFilterClick}
+            onResetFilters={handleResetFilters}
           />
-
-          <input
-            type="text"
-            placeholder="Search by model"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="border p-2 m-2"
-          />
-
-          <button
-            onClick={handleFilterClick}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Search
-          </button>
-
-          {isFilterApplied && (
-            <button
-              onClick={handleResetFilter}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-            >
-              Reset Filter
-            </button>
-          )}
-
-          {filteredProducts.length === 0 && isFilterApplied && (
-            <p className="text-red-500  text-2xl text-center font-bold mt-4">No cars found.</p>
-          )}
-
-          {filteredProducts.length > 0 && (
-            <CarList cars={filteredProducts} />
-          )}
         </div>
-        <footer className="bg-blue-800 text-white p-8">
-          <div className="container mx-auto text-center">
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
-          </div>
-        </footer>
+
+        <div className="main-content">
+          {filteredProducts.length === 0 && isFilterApplied && (
+            <p className="message">Oops !! No cars available.</p>
+          )}
+          {filteredProducts.length > 0 && <CarList cars={filteredProducts} />}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
