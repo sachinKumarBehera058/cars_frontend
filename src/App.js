@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchAllCars = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/all');
+      const response = await axios.get('https://cars-backend-iota.vercel.app/api/all');
       // setCars(response.data.cars);
       setFilteredProducts(response.data.cars);
     } catch (error) {
@@ -33,7 +33,7 @@ const App = () => {
 
   const handleFilterClick = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/filter', {
+      const response = await axios.get('https://cars-backend-iota.vercel.app/api/filter', {
         params: {
           model: searchQuery,
           colors: filters.color && filters.color[0],
