@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CarList from './carlist';
-import Filters from './Filters';
+import CarList from './components/carlist';
+import Filters from './components/Filters';
+import Navbar from './components/Navbar';
+
 import './App.css';
 import "@fontsource/poppins";
 
@@ -37,17 +39,21 @@ const App = () => {
         params: {
           model: searchQuery,
           colors: filters.color && filters.color[0],
-          mileage: filters.mileage && filters.mileage[1],
-          price: filters.price && filters.price[1],
+          mileageMin: filters.mileage && filters.mileage[0],  // Send the minimum value for mileage
+          mileageMax: filters.mileage && filters.mileage[1],  // Send the maximum value for mileage
+          priceMin: filters.price && filters.price[0],        // Send the minimum value for price
+          priceMax: filters.price && filters.price[1],        // Send the maximum value for price
         },
       });
-
+  
       setFilteredProducts(response.data);
       setIsFilterApplied(true);
     } catch (error) {
       console.error('Error fetching filtered data:', error.message);
-    }
+    }    
   };
+  
+  
   const handleColorChange = (color, checked) => {
     let updatedColors;
 
@@ -64,9 +70,9 @@ const App = () => {
     setFilters({ ...filters, [type]: value });
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  // const handleSearchChange = (event) => {
+  //   setSearchQuery(event.target.value);
+  // };
 
   const handleResetFilters = () => {
     // Reset your filters here
@@ -88,23 +94,11 @@ const App = () => {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-container container">
-          <h1 className="logo">BUYCar.com</h1>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search your Favourite Cars"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="search-input"
-            />
-            <button onClick={handleFilterClick} className="search-btn">
-              Search
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navbar
+        searchQuery={searchQuery}
+        onSearchChange={(e) => setSearchQuery(e.target.value)}
+        onFilterClick={handleFilterClick}
+      />
 
       <div className="main-container">
         <div className="sidebar">

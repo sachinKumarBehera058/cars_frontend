@@ -15,7 +15,7 @@
 .filter-options {
   display: flex;
   flex-direction: column;
-  background-color: #f1f4f4;
+  background-color: #fff;
   padding: 10px;
   border-radius: 5px;
   color: black;
@@ -84,7 +84,7 @@
 }
 
 .filter-buttons button.filter-btn {
-  background-color: #0a4f87;
+  background-color: #1976D2;
   color: #fff;
   transition: background-color 0.3s, color 0.3s;
   ;
