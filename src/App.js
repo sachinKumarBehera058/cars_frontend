@@ -1,3 +1,5 @@
+// App.js file
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarList from './components/carlist';
@@ -15,14 +17,12 @@ const App = () => {
   });
 
   const [filteredProducts, setFilteredProducts] = useState([]);
-  // const [cars, setCars] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterApplied, setIsFilterApplied] = useState(false);
 
   const fetchAllCars = async () => {
     try {
       const response = await axios.get('https://cars-backend-iota.vercel.app/api/all');
-      // setCars(response.data.cars);
       setFilteredProducts(response.data.cars);
     } catch (error) {
       console.error('Error fetching all cars:', error.message);
@@ -38,14 +38,14 @@ const App = () => {
       const response = await axios.get('https://cars-backend-iota.vercel.app/api/filter', {
         params: {
           model: searchQuery,
-          colors: filters.color && filters.color[0],
-          mileageMin: filters.mileage && filters.mileage[0],  // Send the minimum value for mileage
-          mileageMax: filters.mileage && filters.mileage[1],  // Send the maximum value for mileage
-          priceMin: filters.price && filters.price[0],        // Send the minimum value for price
-          priceMax: filters.price && filters.price[1],        // Send the maximum value for price
+          colors: filters.color.join(','), // Send multiple colors as a comma-separated string
+          mileageMin: filters.mileage && filters.mileage[0],
+          mileageMax: filters.mileage && filters.mileage[1],
+          priceMin: filters.price && filters.price[0],
+          priceMax: filters.price && filters.price[1],
         },
       });
-  
+
       setFilteredProducts(response.data);
       setIsFilterApplied(true);
     } catch (error) {
@@ -53,14 +53,22 @@ const App = () => {
     }    
   };
   
-  
   const handleColorChange = (color, checked) => {
     let updatedColors;
 
-    if (checked) {
-      updatedColors = [...filters.color, color];
+    if (color === "All") {
+      // If "All" is selected, uncheck it and select all colors
+      updatedColors = checked ? filterOptions.colors : [];
     } else {
-      updatedColors = filters.color.filter((c) => c !== color);
+      // If an individual color is selected/deselected
+      if (filters.color.includes("All")) {
+        // If "All" is already selected, unselect it before selecting individual colors
+        updatedColors = checked ? [color] : [];
+      } else {
+        updatedColors = checked
+          ? [...filters.color, color]
+          : filters.color.filter((c) => c !== color);
+      }
     }
 
     handleFilterChange('color', updatedColors);
@@ -70,18 +78,12 @@ const App = () => {
     setFilters({ ...filters, [type]: value });
   };
 
-  // const handleSearchChange = (event) => {
-  //   setSearchQuery(event.target.value);
-  // };
-
   const handleResetFilters = () => {
-    // Reset your filters here
     setFilters({
       price: [0, 300000],
       color: ["All"],
       mileage: [0, 35],
     });
-
     
     fetchAllCars();
     setIsFilterApplied(false);
