@@ -1,6 +1,6 @@
 // App.js file
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import CarList from './components/carlist';
 import Filters from './components/Filters';
@@ -20,25 +20,12 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterApplied, setIsFilterApplied] = useState(false);
 
-  const fetchAllCars = async () => {
+  const fetchFilteredCars = useCallback(async () => {
     try {
-      const response = await axios.get('https://cars-backend-iota.vercel.app/api/all');
-      setFilteredProducts(response.data.cars);
-    } catch (error) {
-      console.error('Error fetching all cars:', error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchAllCars();
-  }, []);
-
-  const handleFilterClick = async () => {
-    try {
-      const response = await axios.get('https://cars-backend-iota.vercel.app/api/filter', {
+      const response = await axios.get('http://localhost:8000/api/filter', {
         params: {
           model: searchQuery,
-          colors: filters.color.join(','), // Send multiple colors as a comma-separated string
+          colors: filters.color.join(','),
           mileageMin: filters.mileage && filters.mileage[0],
           mileageMax: filters.mileage && filters.mileage[1],
           priceMin: filters.price && filters.price[0],
@@ -50,24 +37,23 @@ const App = () => {
       setIsFilterApplied(true);
     } catch (error) {
       console.error('Error fetching filtered data:', error.message);
-    }    
-  };
-  
+    }
+  }, [filters.color, filters.mileage, filters.price, searchQuery]);
+
+  useEffect(() => {
+    fetchFilteredCars();
+  }, [fetchFilteredCars, filters, searchQuery]);
+
   const handleColorChange = (color, checked) => {
     let updatedColors;
 
-    if (color === "All") {
-      // If "All" is selected, uncheck it and select all colors
-      updatedColors = checked ? filterOptions.colors : [];
+    if (filters.color.includes("All")) {
+      updatedColors = [color];
     } else {
-      // If an individual color is selected/deselected
-      if (filters.color.includes("All")) {
-        // If "All" is already selected, unselect it before selecting individual colors
-        updatedColors = checked ? [color] : [];
+      if (checked) {
+        updatedColors = [...filters.color, color];
       } else {
-        updatedColors = checked
-          ? [...filters.color, color]
-          : filters.color.filter((c) => c !== color);
+        updatedColors = filters.color.filter((c) => c !== color);
       }
     }
 
@@ -84,14 +70,14 @@ const App = () => {
       color: ["All"],
       mileage: [0, 35],
     });
-    
-    fetchAllCars();
+
+    fetchFilteredCars();
     setIsFilterApplied(false);
     setSearchQuery("");
   };
 
   const filterOptions = {
-    colors: ["All", "Red", "Blue", "Silver", "Black", "White", "Gray", "Yellow"],
+    colors: ["Red", "Blue", "Silver", "Black", "White", "Gray", "Yellow"],
   };
 
   return (
@@ -99,7 +85,6 @@ const App = () => {
       <Navbar
         searchQuery={searchQuery}
         onSearchChange={(e) => setSearchQuery(e.target.value)}
-        onFilterClick={handleFilterClick}
       />
 
       <div className="main-container">
@@ -109,7 +94,6 @@ const App = () => {
             onFilterChange={handleFilterChange}
             onColorChange={handleColorChange}
             filters={filters}
-            onFilterClick={handleFilterClick}
             onResetFilters={handleResetFilters}
           />
         </div>

@@ -1,3 +1,5 @@
+// Filters.js file
+
 import React from 'react';
 import Slider from '@mui/material/Slider';
 import Checkbox from '@mui/material/Checkbox';
@@ -9,12 +11,13 @@ const Filters = ({
   onFilterChange,
   onColorChange,
   filters,
-  onFilterClick,
   onResetFilters,
 }) => {
   if (!filterOptions || !filterOptions.colors) {
     return null;
   }
+
+  const isAllChecked = filters.color.includes('All');
 
   return (
     <div className="sidebar">
@@ -37,12 +40,21 @@ const Filters = ({
         </div>
         <div>
           <h2 className="sub-filter">Colors:</h2>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isAllChecked}
+                onChange={(e) => onColorChange('All', e.target.checked)}
+              />
+            }
+            label="All"
+          />
           {filterOptions.colors.map((color, index) => (
             <FormControlLabel
               key={index}
               control={
                 <Checkbox
-                  checked={filters.color.includes(color)}
+                  checked={!isAllChecked && filters.color.includes(color)}
                   onChange={(e) => onColorChange(color, e.target.checked)}
                 />
               }
@@ -67,9 +79,6 @@ const Filters = ({
         </div>
       </div>
       <div className="filter-buttons">
-        <button className="filter-btn" onClick={onFilterClick}>
-          Filter
-        </button>
         <button className="reset-btn" onClick={onResetFilters}>
           Reset
         </button>
