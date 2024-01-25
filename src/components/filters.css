@@ -105,7 +105,7 @@
   .sidebar {
       width: 98%;
       padding: 1%;
-      margin: 1%;
+      margin-top: 7%;
   }
 
   .filter-options input[type="range"] {
