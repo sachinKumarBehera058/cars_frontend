@@ -2,7 +2,7 @@
     box-shadow: 0px 3px 7px 0px #aaa;
     position: fixed;
     width: 100%;
-    height: 65px;
+    height: 8%;
     background-color: #FFF;
     opacity: 0.85;
     z-index: 100;
@@ -55,4 +55,24 @@
     color: #fff!important;
     text-transform: uppercase;
     cursor: pointer;
+  }
+
+
+  @media (max-width: 680px) {
+    .navbar{
+      height: 13%;
+    }
+    .logo{
+      font-size: 1.8rem;
+      margin-top: 5px;
+    }
+    .navbar-container{
+      flex-direction: column;
+    }
+    .search-input{
+      margin-top: 6px;
+    }
+    .search-btn{
+      margin-top: 6px;
+    }
   }

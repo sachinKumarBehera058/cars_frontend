@@ -13,13 +13,21 @@
 
 .main-container {
   display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
 }
 
+.sidbar{
+  width:25%;
+
+}
 .main-content {
-  margin-left: 280px; 
-  margin-top: 30px;
-  padding: 20px;
-  flex: 1;
+  height: 100vh;
+  overflow-y: scroll;
+  width: 75%;
+  margin:auto;
+  margin-top: 2.5%;
+  text-align: center;
 }
 
 
@@ -29,5 +37,22 @@
   text-align: center;
   padding: 300px;
 }
+
+@media (max-width: 680px){
+  .main-container{
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .main-content{
+    width: 100%;
+    height: unset;
+    overflow-y: unset;
+  }
+  .sidbar{
+    width: 100%;
+    padding-top: 20%;
+  }
+}
+
 
 

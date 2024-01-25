@@ -1,10 +1,10 @@
-// App.js file
-
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import CarList from './components/carlist';
 import Filters from './components/Filters';
 import Navbar from './components/Navbar';
+import Loader from './components/Loader';
+
 
 import './App.css';
 import "@fontsource/poppins";
@@ -19,9 +19,13 @@ const App = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [loading, setLoading] = useState(true); // Set initial loading state to true
+  const [firstload, setFirstload] = useState(true);
 
   const fetchFilteredCars = useCallback(async () => {
     try {
+      setLoading(true); // Set loading state to true when starting to fetch data
+
       const response = await axios.get('http://localhost:8000/api/filter', {
         params: {
           model: searchQuery,
@@ -37,12 +41,24 @@ const App = () => {
       setIsFilterApplied(true);
     } catch (error) {
       console.error('Error fetching filtered data:', error.message);
+    } finally {
+      setLoading(false); // Set loading state to false once the data is fetched (whether successful or not)
     }
   }, [filters.color, filters.mileage, filters.price, searchQuery]);
 
   useEffect(() => {
-    fetchFilteredCars();
-  }, [fetchFilteredCars, filters, searchQuery]);
+    // Fetch initial data
+    if(firstload)
+    {
+      setFirstload(false);
+    }
+    const timerId = setTimeout(() => {  //debounce except on first load
+      fetchFilteredCars();
+    }, 500);
+
+    return () => clearTimeout(timerId); // Cleanup on unmount or when searchbox changes
+
+  }, [fetchFilteredCars, filters, searchQuery,firstload]);
 
   const handleColorChange = (color, checked) => {
     let updatedColors;
@@ -71,6 +87,7 @@ const App = () => {
       mileage: [0, 35],
     });
 
+    // Reset and fetch data
     fetchFilteredCars();
     setIsFilterApplied(false);
     setSearchQuery("");
@@ -79,6 +96,10 @@ const App = () => {
   const filterOptions = {
     colors: ["Red", "Blue", "Silver", "Black", "White", "Gray", "Yellow"],
   };
+  if(loading){
+    
+    return <Loader/>
+  }
 
   return (
     <>
@@ -88,7 +109,8 @@ const App = () => {
       />
 
       <div className="main-container">
-        <div className="sidebar">
+      
+        <div className="sidbar">
           <Filters
             filterOptions={filterOptions}
             onFilterChange={handleFilterChange}
