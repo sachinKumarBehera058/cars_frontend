@@ -31,7 +31,7 @@ const Filters = ({
               value={filters.price}
               onChange={(_, value) => onFilterChange('price', value)}
               valueLabelDisplay="auto"
-              valueLabelFormat={(value) => `$${value}`}
+              valueLabelFormat={(value) => `${value}`}
               min={0}
               max={300000}
             />

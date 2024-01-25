@@ -34,7 +34,13 @@
   color: rgb(237, 74, 74);
   font-size: xx-large;
   text-align: center;
-  padding: 300px;
+  padding: 100px 300px 30px 300px;
+}
+
+.not-found-image{
+  height: 20%;
+  width: 40%;
+
 }
 
 @media (max-width: 680px){
@@ -50,6 +56,12 @@
   .sidbar{
     width: 100%;
     padding-top: 15%;
+  }
+
+  .message{
+    font-size: xx-large;
+    text-align: center;
+    padding: 10px 30px 30px 30px;
   }
 }
 

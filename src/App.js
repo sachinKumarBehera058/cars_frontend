@@ -4,6 +4,7 @@ import CarList from './components/carlist';
 import Filters from './components/Filters';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
+import img from './components/not-found.jpg';
 
 
 import './App.css';
@@ -122,7 +123,10 @@ const App = () => {
 
         <div className="main-content">
           {filteredProducts.length === 0 && isFilterApplied && (
-            <p className="message">Oops !! No cars available.</p>
+             <div className="no-cars">
+             <p className="message">Oops !! No cars available.</p>
+             <img src={img} alt="No Cars Found" className="not-found-image" />
+           </div>
           )}
           {filteredProducts.length > 0 && <CarList cars={filteredProducts} />}
         </div>
