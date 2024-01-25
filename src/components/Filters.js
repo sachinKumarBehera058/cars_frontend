@@ -7,6 +7,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import './filters.css';
 
+const formatPriceWithCommas = (price) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 const Filters = ({
   filterOptions,
   onFilterChange,
@@ -27,16 +31,20 @@ const Filters = ({
         <div>
           <h2 className="sub-filter">Price ($):</h2>
           <div className="range-slider">
-            <div className="slider-label">Min: {filters.price[0]}</div>
+            <div className="slider-label">
+              Min: {formatPriceWithCommas(filters.price[0])}
+            </div>
             <Slider
               value={filters.price}
               onChange={(_, value) => onFilterChange('price', value)}
               valueLabelDisplay="auto"
-              valueLabelFormat={(value) => `${value}`}
+              valueLabelFormat={(value) => formatPriceWithCommas(value)}
               min={0}
               max={300000}
             />
-            <div className="slider-label">Max: {filters.price[1]}</div>
+            <div className="slider-label">
+              Max: {formatPriceWithCommas(filters.price[1])}
+            </div>
           </div>
         </div>
         <div>
