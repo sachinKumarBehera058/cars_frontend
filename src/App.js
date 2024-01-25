@@ -97,10 +97,6 @@ const App = () => {
   const filterOptions = {
     colors: ["Red", "Blue", "Silver", "Black", "White", "Gray", "Yellow"],
   };
-  if(loading){
-    
-    return <Loader/>
-  }
 
   return (
     <>
@@ -128,7 +124,7 @@ const App = () => {
              <img src={img} alt="No Cars Found" className="not-found-image" />
            </div>
           )}
-          {filteredProducts.length > 0 && <CarList cars={filteredProducts} />}
+          {loading?<Loader/>:filteredProducts.length > 0&& <CarList cars={filteredProducts} />}
         </div>
       </div>
     </>
