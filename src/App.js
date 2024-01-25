@@ -26,7 +26,7 @@ const App = () => {
     try {
       setLoading(true); // Set loading state to true when starting to fetch data
 
-      const response = await axios.get('http://localhost:8000/api/filter', {
+      const response = await axios.get('https://cars-backend-iota.vercel.app/api/filter', {
         params: {
           model: searchQuery,
           colors: filters.color.join(','),
