@@ -5,7 +5,7 @@ const Navbar = ({ searchQuery, onSearchChange, onFilterClick }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container container">
-        <h1 className="logo">BUYCar.com</h1>
+        <h1 className="logo">BUYC Corp</h1>
         <div className="search-container">
           <input
             type="text"

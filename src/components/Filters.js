@@ -4,6 +4,7 @@ import React from 'react';
 import Slider from '@mui/material/Slider';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+
 import './filters.css';
 
 const Filters = ({
