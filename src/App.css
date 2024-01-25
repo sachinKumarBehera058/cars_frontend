@@ -14,11 +14,11 @@
 .main-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
 }
 
 .sidbar{
   width:25%;
+  
 }
 .main-content {
   height: 100vh;
