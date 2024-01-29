@@ -1,7 +1,8 @@
 import React from 'react';
 import "../components/Navbar.css"
+import img from '../components/remove.png';
 
-const Navbar = ({ searchQuery, onSearchChange, onFilterClick }) => {
+const Navbar = ({ searchQuery, onSearchChange, onClearClick }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container container">
@@ -14,10 +15,11 @@ const Navbar = ({ searchQuery, onSearchChange, onFilterClick }) => {
             onChange={onSearchChange}
             className="search-input"
           />
-           {/* <span class="searchBox-clear js-clearSearchBox"><i class="fa fa-times-circle"></i></span> */}
-           <button onClick={onFilterClick} className="search-btn">
-            Search
-          </button>
+          {searchQuery && (
+            <button className="clear-button" type="button" onClick={onClearClick}>
+              <img src={img} alt="clear button" />
+            </button>
+          )}
         </div>
       </div>
     </nav>

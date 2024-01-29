@@ -58,6 +58,11 @@ const App = () => {
 
     return () => clearTimeout(timerId);
   }, [fetchFilteredCars, filters, searchQuery,firstload]);
+  
+  
+  const handleClear = () => {
+    setSearchQuery("");
+  };
 
   const handleColorChange = (color, checked) => {
     let updatedColors;
@@ -100,6 +105,7 @@ const App = () => {
       <Navbar
         searchQuery={searchQuery}
         onSearchChange={(e) => setSearchQuery(e.target.value)}
+        onClearClick={handleClear}
       />
 
       <div className="main-container">
