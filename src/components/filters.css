@@ -5,12 +5,12 @@
   left: 0;
   height: 100%;
   width: 90%;
-  padding: 0% 10% 10% 10%;
+  padding: 60px 10% 10% 10%;
 
   background-color: #fff;
   box-shadow: 2px 0px 5px 0.1px #c0c0c0;
   /* overflow-y: auto; */
-  margin-top: 65px;
+  /* margin-top: 65px; */
 }
 
 .filter-options {
@@ -104,7 +104,7 @@
 @media (max-width: 680px) {
   .sidebar {
       width: 95%;
-      padding: 5% 10% 10% 10%;
+      padding: 70px 10% 10% 10%;
   }
 
   .filter-options input[type="range"] {

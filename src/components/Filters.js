@@ -1,7 +1,7 @@
-// Filters.js file
-
+// Filters.js
 import React from 'react';
-import Slider from '@mui/material/Slider';
+import CustomSlider from './CustomSlider'; // Import CustomSlider component
+
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -30,22 +30,14 @@ const Filters = ({
       <div className="filter-options">
         <div>
           <h2 className="sub-filter">Price ($):</h2>
-          <div className="range-slider">
-            <div className="slider-label">
-              Min: {formatPriceWithCommas(filters.price[0])}
-            </div>
-            <Slider
-              value={filters.price}
-              onChange={(_, value) => onFilterChange('price', value)}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(value) => formatPriceWithCommas(value)}
-              min={0}
-              max={300000}
-            />
-            <div className="slider-label">
-              Max: {formatPriceWithCommas(filters.price[1])}
-            </div>
-          </div>
+          <CustomSlider
+            value={filters.price}
+            onChange={(value) => onFilterChange('price', value)}
+            label="Price"
+            min={0}
+            max={300000}
+            valueLabelFormat={(value) => formatPriceWithCommas(value)}
+          />
         </div>
         <div>
           <h2 className="sub-filter">Colors:</h2>
@@ -73,18 +65,14 @@ const Filters = ({
         </div>
         <div>
           <h2 className="sub-filter">Mileage (MPG):</h2>
-          <div className="range-slider">
-            <div className="slider-label">Min: {filters.mileage[0]}</div>
-            <Slider
-              value={filters.mileage}
-              onChange={(_, value) => onFilterChange('mileage', value)}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(value) => `${value} MPG`}
-              min={0}
-              max={35}
-            />
-            <div className="slider-label">Max: {filters.mileage[1]}</div>
-          </div>
+          <CustomSlider
+            value={filters.mileage}
+            onChange={(value) => onFilterChange('mileage', value)}
+            label="Mileage"
+            min={0}
+            max={35}
+            valueLabelFormat={(value) => `${value} MPG`}
+          />
         </div>
       </div>
       <div className="filter-buttons">

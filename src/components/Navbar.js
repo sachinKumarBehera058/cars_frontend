@@ -14,7 +14,8 @@ const Navbar = ({ searchQuery, onSearchChange, onFilterClick }) => {
             onChange={onSearchChange}
             className="search-input"
           />
-          <button onClick={onFilterClick} className="search-btn">
+           {/* <span class="searchBox-clear js-clearSearchBox"><i class="fa fa-times-circle"></i></span> */}
+           <button onClick={onFilterClick} className="search-btn">
             Search
           </button>
         </div>
