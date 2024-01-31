@@ -5,7 +5,7 @@ import CarList from './components/carlist';
 import Filters from './components/Filters';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
-import img from './components/not-found.jpg';
+import img from './Images/not-found.jpg';
 
 import './App.css';
 import "@fontsource/poppins";

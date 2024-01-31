@@ -26,7 +26,7 @@
 }
 
 .car-model {
-  font-size: x-large;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 8px;
   color: #1E3A8A;
@@ -34,13 +34,14 @@
 
 .car-price {
   font-weight: 600;
-  font-size: x-large;
+  font-size: 24px;
   color: rgb(75, 74, 74);
 }
 
 .car-info {
   color: #3a3838;
   margin-bottom: 4px;
+  font-size: 16px;
 }
 
 @media (max-width: 680px) {
@@ -49,15 +50,15 @@
   }
 
   .car-model {
-    font-size: large;
+    font-size: 18px;
     margin-bottom: 6px;
   }
 
   .car-price {
-    font-size: large;
+    font-size: 18px;
   }
 
   .car-info {
-    font-size: small;
+    font-size: 12px;
   }
 }

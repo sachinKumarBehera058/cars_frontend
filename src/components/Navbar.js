@@ -1,6 +1,6 @@
 import React from 'react';
 import "../components/Navbar.css"
-import img from '../components/remove.png';
+import img from '../Images/remove.png';
 
 const Navbar = ({ searchQuery, onSearchChange, onClearClick }) => {
   return (
